@@ -4,11 +4,35 @@ namespace Services\Router;
 
 class Route implements Routable
 {
-
+    /**
+     *
+     * @var string
+     */
     protected $controller;
+    
+    /**
+     *
+     * @var string
+     */
     protected $action;
+    
+    /**
+     *
+     * @var NULL | array
+     */
     protected $params = NULL;
+    
+    /**
+     *
+     * @var Object Routable
+     */
     protected $route;
+    
+    /**
+     * name of route
+     * 
+     * @var string
+     */
     protected $name;
 
     public function __construct(array $route)
@@ -26,6 +50,32 @@ class Route implements Routable
         $this->setConnect($connect);
     }
 
+    /**
+     * Setter of paramaters route
+     * 
+     * @param array $m
+     * @return NULL | array
+     */
+    public function setParams($m)
+    {
+        if (empty($this->route['params'])) {
+            return;
+        }
+        
+        $params = explode(',', $this->route['params']);
+        foreach ($params as $p) {
+            $p = trim($p);
+            $this->params[$p] = $m[$p];
+        }
+    }
+
+    /**
+     * 
+     *  two string separated by : to connect by order controller and action
+     * 
+     * @param array $connect
+     * @throws \RuntimeException
+     */
     public function setConnect($connect)
     {
         $c = explode(':', $connect);
@@ -50,12 +100,18 @@ class Route implements Routable
     {
         return $this->params;
     }
-    
+
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     *  <pre>Check url with pattern route </pre>
+     * 
+     * @param string $url
+     * @return boolean
+     */
     public function isMatch($url)
     {
         if (preg_match('/^' . $this->route['pattern'] . '$/', $url, $m)) {
@@ -63,18 +119,6 @@ class Route implements Routable
             return true;
         } else {
             return false;
-        }
-    }
-
-    public function setParams($m)
-    {
-        if (empty($this->route['params'])) {
-            return;
-        }
-        $params = explode(',', $this->route['params']);
-        foreach ($params as $p) {
-            $p = trim($p);
-            $this->params[$p] = $m[$p];
         }
     }
 

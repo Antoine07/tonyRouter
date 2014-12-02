@@ -3,7 +3,7 @@
 namespace Services\Router;
 
 /**
- * Description of Router
+ * Router
  *
  * @author antoine
  */
@@ -16,7 +16,24 @@ class Router implements \Countable
     {
         $this->routes = new \SplObjectStorage;
     }
+    
+    /**
+     * <pre> pass a route string and return a object Route</pre>
+     * 
+     * @param string $url
+     * @return  \RuntimeException | object Route
+     */
+    public function getRoute($url)
+    {
+        foreach ($this->routes as $route) {
+            if ($route->isMatch($url)) {
+                return $route;
+            }
+        }
 
+        throw new \RuntimeException("bad route exception");
+    }
+    
     /**
      * 
      * @param array $routes
@@ -32,20 +49,10 @@ class Router implements \Countable
     }
 
     /**
+     * count a number of routes in storage
      * 
-     * @param type $url
+     * @return int
      */
-    public function getRoute($url)
-    {
-        foreach ($this->routes as $route) {
-            if ($route->isMatch($url)) {
-                return $route;
-            }
-        }
-
-        throw new \RuntimeException("bad route exception");
-    }
-
     public function count()
     {
         return count($this->routes);

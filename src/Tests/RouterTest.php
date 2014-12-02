@@ -7,7 +7,7 @@ use Services\Router\Route;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Description of RouterTest
+ * Tests routing
  *
  * @author antoine
  */
