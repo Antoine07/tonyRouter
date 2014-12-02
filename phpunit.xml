@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="./src/Tests/bootstrap.php" colors="true" verbose="true">
+    <testsuites>
+        <testsuite name="PHPUnit TDD">
+            <directory>./src/Tests</directory>
+            <exclude>./src/Tests/NRouterTest.php</exclude>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src</directory>
+        </whitelist>
+    </filter>
+</phpunit>

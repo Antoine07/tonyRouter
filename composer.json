@@ -1,0 +1,22 @@
+{
+    "name": "minirouter/minirouter",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Antoine Lucsko",
+            "email": "antoine.lucsko@wanadoo.fr"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.0",
+        "symfony/yaml": "~3.0@dev"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    }
+}
