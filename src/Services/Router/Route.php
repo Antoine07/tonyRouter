@@ -9,26 +9,31 @@ class Route implements Routable
     protected $action;
     protected $params = NULL;
     protected $route;
+    protected $name;
 
     public function __construct(array $route)
     {
         $this->route = $route;
 
-        if (empty($route['connect'])) {
+        $connect = $route['connect'];
+
+        if (empty($connect)) {
             throw new \RuntimeException('Bad syntax connect.');
         }
 
-        $this->setConnect($route['connect']);
+        $this->name = $connect;
+
+        $this->setConnect($connect);
     }
 
     public function setConnect($connect)
     {
-        $connect = explode(':', $connect);
-        if (count($connect) != 2) {
+        $c = explode(':', $connect);
+        if (count($c) != 2) {
             throw new \RuntimeException('Bad syntax connect.');
         }
-        $this->controller = $connect[0];
-        $this->action = $connect[1];
+
+        list($this->controller, $this->action) = $c;
     }
 
     public function getController()
@@ -44,6 +49,11 @@ class Route implements Routable
     public function getParams()
     {
         return $this->params;
+    }
+    
+    public function getName()
+    {
+        return $this->name;
     }
 
     public function isMatch($url)
@@ -63,8 +73,8 @@ class Route implements Routable
         }
         $params = explode(',', $this->route['params']);
         foreach ($params as $p) {
-            $param = trim($p);
-            $this->params[] = $m[$p];
+            $p = trim($p);
+            $this->params[$p] = $m[$p];
         }
     }
 

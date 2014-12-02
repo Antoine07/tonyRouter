@@ -14,6 +14,6 @@ BlogController_edit:
     connect:  Controllers\BlogController:edit
     params: id
 CategoryController_show:
-    pattern:   \/cat\/[a-zA-Z0-9\-_]+\/(?P<id>[1-9][0-9]*)
-    connect:  Controllers\\CategoryController:show
-    params: id
+    pattern:   \/cat\/[a-zA-Z0-9\-_]+\/(?P<cat_id>[1-9][0-9]*)\/(?P<user_id>[1-9][0-9]*)
+    connect:  Controllers\CategoryController:show
+    params: cat_id, user_id
